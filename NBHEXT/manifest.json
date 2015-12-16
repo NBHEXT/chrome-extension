@@ -19,17 +19,13 @@
     	"tabs",
     	"activeTab",
     	"background",
-    	"http://codeforces.com/"
+    	"http://codeforces.com/",
+        "http://nbhext.com/"
     ],
 
     "content_scripts":
     [{
-        "js": ["third_party/jquery.js", "showDeltas.js", "CalculateRatingChanges.js"],
+        "js": ["third_party/jquery.js", "showDeltas.js"],
         "matches": ["http://codeforces.com/contest/*/standings*"]
-    }],
-
-    "background":
-    {
-        "scripts" : ["third_party/jquery.js", "background.js"]
-    }
+    }]
 }
