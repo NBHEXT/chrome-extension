@@ -51,22 +51,30 @@ function showDeltas()
     if (count > 2)
     {
         var contestId = document.location.href.replace(/\D+/ig, ',').substr(1).split(',')[0];
-        $.getJSON("http://nbhext.com/api/standings?contestId=" + contestId,
-            function(data)
-            {
-                if (data.result == "OK")
+        var workOnContest = false;
+        chrome.storage.sync.get(
+        {
+            workOnContest: false
+        }, function(data)
+        {
+            workOnContest = data.workOnContest;
+            $.getJSON("http://nbhext.com/api/standings?contestId=" + contestId + "&workOnContest=" + workOnContest,
+                function(data)
                 {
-                    deltas = data.deltas;
-                    $(".standings").find("tr").first().find("th").last().removeClass("right");
-                    $(".standings").find("tr").find("td").removeClass("right");
-                    $(".standings").find("tr").each(modifyPartyHtml);
-                    if (count % 2 == 0)
-                        $(".standings").find("tr").last().find("td").last().replaceWith("<td class='smaller bottom dark right'> </td>");
-                    else
-                        $(".standings").find("tr").last().find("td").last().replaceWith("<td class='smaller bottom right'> </td>");
+                    if (data.result == "OK")
+                    {
+                        deltas = data.deltas;
+                        $(".standings").find("tr").first().find("th").last().removeClass("right");
+                        $(".standings").find("tr").find("td").removeClass("right");
+                        $(".standings").find("tr").each(modifyPartyHtml);
+                        if (count % 2 == 0)
+                            $(".standings").find("tr").last().find("td").last().replaceWith("<td class='smaller bottom dark right'> </td>");
+                        else
+                            $(".standings").find("tr").last().find("td").last().replaceWith("<td class='smaller bottom right'> </td>");
+                    }
                 }
-            }
-        );
+            );
+        });
     }
 }
 
