@@ -51,6 +51,7 @@ function showDeltas()
     if (count > 2)
     {
         var contestId = document.location.href.replace(/\D+/ig, ',').substr(1).split(',')[0];
+        var showUnofficial = document.getElementById("showUnofficial").checked;
         var workOnContest = false;
         chrome.storage.sync.get(
         {
@@ -58,7 +59,7 @@ function showDeltas()
         }, function(data)
         {
             workOnContest = data.workOnContest;
-            $.getJSON("http://nbhext.com/api/standings?contestId=" + contestId + "&workOnContest=" + workOnContest,
+            $.getJSON("http://nbhext.com/api/standings?contestId=" + contestId + "&showUnofficial=" + showUnofficial + "&workOnContest=" + workOnContest,
                 function(data)
                 {
                     if (data.result == "OK")
