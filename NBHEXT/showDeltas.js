@@ -15,7 +15,7 @@ var deltas = [];
 
 function modifyPartyHtml(index, elem)
 {
-    var delta = 0;
+    var delta = "?";
     if (partyNum > 0)
     {
         var handle = $(elem).find("td:eq(1)").find("a").first().html();
@@ -33,13 +33,10 @@ function modifyPartyHtml(index, elem)
     }
     else
     {
-        var darkClass = "";
-        if (partyNum % 2 == 1)
-            darkClass = "dark ";
-        if (delta > 0)
-            text = "<td class='" + darkClass + "right'><span style='color:green;font-weight:bold;'>+" + delta + "</span></td>";
-        else
-            text = "<td class='" + darkClass + "right'><span style='color:gray;font-weight:bold;'>" + (delta > 0 ? "-" : "") + delta + "</span></td>";        
+        var darkClassText = partyNum % 2 == 1 ? "dark " : "";
+        var colorText = delta > 0 ? "green" : "gray";
+        var deltaSignText = delta > 0 ? "+" : "";
+        text = "<td class='" + darkClassText + "right'><span style='color:" + colorText + ";font-weight:bold;'>" + deltaSignText + delta + "</span></td>";
     }
     ++partyNum;
     $(elem).append(text);
