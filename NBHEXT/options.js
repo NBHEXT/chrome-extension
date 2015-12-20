@@ -1,4 +1,4 @@
-function saveOptions(isSwapped) {
+function saveOptions() {
     var workOnContestValue = document.getElementById('workOnContest').checked;
     chrome.storage.sync.set({
         workOnContest: workOnContestValue
